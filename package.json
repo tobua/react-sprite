@@ -1,0 +1,31 @@
+{
+  "name": "react-sprite",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/ReactSprite.js",
+  "author": "Matthias Giger",
+  "description": "React SVG Sprite with Polyfill for older browsers.",
+  "scripts": {
+    "build": "babel ReactSprite.js -d dist",
+    "watch": "babel ReactSprite.js --watch -d dist"
+  },
+  "peerDependencies": {
+    "react": "^16.4.0"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
+    "babel-preset-react": "^6.24.1",
+    "prop-types": "^15.6.1",
+    "request": "^2.87.0"
+  },
+  "keywords": [
+    "react",
+    "svg",
+    "use",
+    "sprite",
+    "polyfill",
+    "ie11"
+  ]
+}
