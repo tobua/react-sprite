@@ -10,15 +10,17 @@
     "watch": "babel ReactSprite.js --watch -d dist"
   },
   "peerDependencies": {
-    "react": "^16.4.0"
+    "react": "^16.4.1"
   },
-  "dependencies": {
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-minify": "^0.4.3",
     "babel-preset-react": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "lodash.omit": "^4.5.0",
     "prop-types": "^15.6.1",
-    "request": "^2.87.0"
+    "xhr": "^2.5.0"
   },
   "keywords": [
     "react",

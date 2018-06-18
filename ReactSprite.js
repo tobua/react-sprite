@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import request from 'request'
+import request from 'xhr'
+import omit from 'lodash.omit'
 
 let browserPolyfill = 'unchecked'
 const sprites = {}
@@ -45,10 +46,22 @@ const getAbsuluteUrl = (url) => {
 const appendToNode = (node, symbol) => {
   const symbolChildren = symbol.childNodes
 
+  setViewBox(node, symbol)
   removeNodeContents(node)
 
   for (var i = 0; i < symbolChildren.length; i++) {
     node.appendChild(symbolChildren[i])
+  }
+}
+
+/**
+ * Copy over the viewBox attribute from the symbol.
+ **/
+const setViewBox = (node, symbol) => {
+  const viewBox = symbol.getAttribute('viewBox')
+
+  if (viewBox) {
+    node.setAttribute('viewBox', viewBox)
   }
 }
 
@@ -136,22 +149,31 @@ export default class ReactSVGPolyfill extends Component {
   }
 
   /**
-   * Load the sprite with an AJAX call and cache it.
+   * Load the sprite with an AJAX call.
    **/
   requestSprite (url, callback) {
     if (sprites[url]) {
       callback(sprites[url])
     }
 
-    request(getAbsuluteUrl(url), (error, response, body) => {
-      if (error) {
-        return
-      }
+    request({
+      uri: getAbsuluteUrl(url)
+    }, (error, response, body) =>
+      this.receiveSprite(error, body, url, callback)
+    )
+  }
 
-      sprites[url] = createDocumentFromSprite(body)
+  /**
+   * Cache the response.
+   **/
+  receiveSprite(error, body, url, callback) {
+    if (error) {
+      return
+    }
 
-      callback(sprites[url])
-    })
+    sprites[url] = createDocumentFromSprite(body)
+
+    callback(sprites[url])
   }
 
   /**
@@ -160,8 +182,6 @@ export default class ReactSVGPolyfill extends Component {
    **/
   insertSymbol (sprite) {
     const symbol = sprite.getElementById(this.state.id)
-
-    console.log('syn', symbol, this.state.id)
 
     if (!symbol || !this.outlet.current) {
       return
@@ -173,21 +193,22 @@ export default class ReactSVGPolyfill extends Component {
   /**
    * Renders an svg with a ref, so that the content can later be added.
    **/
-  renderPolyfillOutlet () {
-    return <svg className="icon" viewBox="0 0 24 24" ref={this.outlet} />
+  renderPolyfillOutlet (passedProps) {
+    return <svg {...passedProps} ref={this.outlet} />
   }
 
   /**
    * Renders the icon, with or without polyfill, depending on the state.
    **/
   render () {
-    console.log(this.props.href)
+    const passedProps = omit(this.props, ['href', 'polyfill']);
+
     if (this.state.polyfill) {
-      return this.renderPolyfillOutlet()
+      return this.renderPolyfillOutlet(passedProps)
     }
 
     return (
-      <svg className="icon">
+      <svg {...passedProps}>
         <use xlinkHref={this.props.href} />
       </svg>
     )
