@@ -100,7 +100,7 @@ export default class ReactSVGPolyfill extends Component {
       fetch: Boolean(url.length),
       url: url,
       id: srcSplit.join("#"),
-      polyfill: props.polyfill && browserRequiresPolyfill() && url
+      polyfill: browserRequiresPolyfill() && url
     }
   }
 
@@ -216,6 +216,5 @@ export default class ReactSVGPolyfill extends Component {
 }
 
 ReactSVGPolyfill.propTypes = {
-  href: PropTypes.string.isRequired,
-  polyfill: PropTypes.bool,
+  href: PropTypes.string.isRequired
 }

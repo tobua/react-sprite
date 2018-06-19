@@ -34,7 +34,7 @@ The following props are available on the component.
 Can be either a link to an inline sprite like `#arrow` or to an external sprite
 with the URL in front `sprite.svg#arrow`.
 
-`polyfill` default false
+`any` optional (className, onClick etc.)
 
-If true is passed the polyfill will allways be used and if false is set then it
-will never be used.
+Any other props can be passed to the component as well and will be added to the
+top node.
