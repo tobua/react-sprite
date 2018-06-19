@@ -1,6 +1,6 @@
 {
   "name": "react-sprite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/ReactSprite.js",
   "author": "Matthias Giger",
@@ -8,6 +8,10 @@
   "scripts": {
     "build": "babel ReactSprite.js -d dist",
     "watch": "babel ReactSprite.js --watch -d dist"
+  },
+  "dependencies": {
+    "lodash.omit": "^4.5.0",
+    "xhr": "^2.5.0"
   },
   "peerDependencies": {
     "react": "^16.4.1"
@@ -18,9 +22,7 @@
     "babel-preset-minify": "^0.4.3",
     "babel-preset-react": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "lodash.omit": "^4.5.0",
-    "prop-types": "^15.6.1",
-    "xhr": "^2.5.0"
+    "prop-types": "^15.6.1"
   },
   "keywords": [
     "react",
