@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import request from 'xhr'
 import omit from 'lodash.omit'
+import equal from 'fast-deep-equal'
 
 let browserPolyfill = 'unchecked'
 const sprites = {}
@@ -123,8 +124,10 @@ export default class ReactSVGPolyfill extends Component {
   /**
    * Check if a new sprite needs to be loaded after the component has updated.
    **/
-  componentDidUpdate () {
-    this.checkSprite()
+  componentDidUpdate (prevProps) {
+    if (!equal(prevProps, this.props)) {
+      this.checkSprite()
+    }
   }
 
   /**
