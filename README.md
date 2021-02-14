@@ -12,17 +12,11 @@ npm i react-sprite
 
 ## Usage
 
-```
-import React from 'react'
-import ReactDOM from 'react-dom'
-import ReactSprite from 'react-sprite'
+```jsx
+import { render } from "react-dom";
+import ReactSprite from "react-sprite";
 
-ReactDOM.render(
-  <ReactSprite
-    href={`sprite.svg#${this.state.icon}`}
-  />,
-  document.querySelector('.react-outlet')
-)
+render(<ReactSprite href={`sprite.svg#${"close"}`} />, document.body);
 ```
 
 ## Options
