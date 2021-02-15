@@ -15,3 +15,8 @@ export default () => ({
   },
   plugins: [new SpriteLoaderPlugin()],
 })
+
+export const after = (configuration) => {
+  // Remove SVG from file-loader.
+  configuration.module.rules[2].test = /\.(png|jpe?g|gif)$/i
+}

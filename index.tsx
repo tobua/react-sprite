@@ -8,7 +8,7 @@ const sprites = new Map<string, Document>()
 
 // Creates a sprite document from the raw body contents that can later be
 // queried for individual symbols.
-const createDocumentFromSprite = (body) => {
+const createDocumentFromSprite = (body: string) => {
   const spriteDocument = document.implementation.createHTMLDocument('')
   spriteDocument.body.innerHTML = body
 
@@ -22,35 +22,61 @@ const absuluteUrl = (url: string) => {
   return link.href
 }
 
-const requestSprite = async (link: string) => {
+const insertSprite = (sprite: Document, node: HTMLElement, id: string) => {
+  const symbol = sprite.getElementById(id)
+
+  // Insert symbol contents into SVG ref.
+  node.innerHTML = symbol.innerHTML
+
+  // Take over viewBox attribute from symbol to ensure proper display.
+  if (symbol.hasAttribute('viewBox')) {
+    node.setAttribute('viewBox', symbol.getAttribute('viewBox'))
+  }
+}
+
+// Load the SVG sprite, and query it to get the symbol we want to polyfill in.
+const requestSprite = async (link: string, node: HTMLElement) => {
   const [url, id] = link.split('#')
 
-  const sprite = await new Promise((done) =>
-    request(
-      {
-        uri: absuluteUrl(url),
-      },
-      (error, response, body) => {
-        done(body)
-      }
-    )
-  )
+  if (sprites.has(url)) {
+    insertSprite(sprites.get(url), node, id)
+    return
+  }
 
-  sprites.set(url, createDocumentFromSprite(sprite))
+  // TODO prevent multiple requests for the same sprite.
+  request(
+    {
+      uri: absuluteUrl(url),
+    },
+    (error, _, sprite: string) => {
+      if (error && process.env.NODE_ENV !== 'production') {
+        console.warn(`ReactSprite: unable to load sprite from ${url}.`)
+        return
+      }
+
+      const spriteDocument = createDocumentFromSprite(sprite)
+
+      if (!sprites.has(url)) {
+        sprites.set(url, spriteDocument)
+      }
+
+      insertSprite(spriteDocument, node, id)
+    }
+  )
 }
 
 // Whether the current environment requires the polyfill to insert the SVG from the sprite.
 const shouldPolyfill = () => {
   const newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/
-  const webkitUA = /\bAppleWebKit\/(\d+)\b/,
-    olderEdgeUA = /\bEdge\/12\.(\d+)\b/
+  const webkitUA = /\bAppleWebKit\/(\d+)\b/
+  const olderEdgeUA = /\bEdge\/12\.(\d+)\b/
   const edgeUA = /\bEdge\/.(\d+)\b/
   const inIframe = window.top !== window.self
 
   return (
     newerIEUA.test(navigator.userAgent) ||
-    (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 ||
-    (navigator.userAgent.match(webkitUA) || [])[1] < 537 ||
+    Number((navigator.userAgent.match(olderEdgeUA) || [])[1]) < 10547 ||
+    Number((navigator.userAgent.match(webkitUA) || [])[1]) < 537 ||
     (edgeUA.test(navigator.userAgent) && inIframe)
   )
 }
@@ -73,19 +99,17 @@ const validateProps = ({ href, xlinkHref }: Props) => {
 export default ({
   href,
   xlinkHref,
-  forcePolyfill,
+  force,
   ...props
-}: Props & { forcePolyfill: boolean }) => {
+}: Props & { force: boolean }) => {
   const ref = useRef(null)
-  const polyfill = useMemo(() => forcePolyfill || shouldPolyfill(), [
-    forcePolyfill,
-  ])
+  const polyfill = useMemo(() => force || shouldPolyfill(), [force])
   const { link } = validateProps({ href, xlinkHref })
 
   if (polyfill) {
     useEffect(() => {
       if (ref.current) {
-        requestSprite(link)
+        requestSprite(link, ref.current)
       }
     })
   }

@@ -33,10 +33,23 @@ const Icon = () => {
       <svg style={{ width: 40, height: 40 }} viewBox={menu.viewBox}>
         <use xlinkHref={menu.url} />
       </svg>
+      <ReactSprite
+        style={{ width: 30, height: 30 }}
+        viewBox={icon.viewBox}
+        href={icon.url}
+      />
+      <ReactSprite
+        style={{ width: 30, height: 30 }}
+        href="sprite.svg#menu"
+        force
+      />
+      <ReactSprite
+        style={{ width: 30, height: 30 }}
+        href="sprite.svg#close-round"
+        force
+      />
     </>
   )
-
-  return <ReactSprite viewBox={icon.viewBox} href={icon.url} />
 }
 
 render(

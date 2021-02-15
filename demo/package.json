@@ -3,7 +3,7 @@
     "title": "react-sprite Demo"
   },
   "dependencies": {
-    "papua": "^0.1.13",
+    "papua": "^0.1.14",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "svg-sprite-loader": "^5.2.1"
