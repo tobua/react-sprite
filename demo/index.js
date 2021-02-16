@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { render } from 'react-dom'
 import ReactSprite from 'react-sprite'
-import npm from 'npm.svg'
-import github from 'github.png'
+import { Exmpl } from 'exmpl'
 
 import menu from 'icon/menu.svg'
 import close from 'icon/close.svg'
@@ -53,34 +52,12 @@ const Icon = () => {
 }
 
 render(
-  <div style={{ fontFamily: 'sans-serif', maxWidth: '75vw', margin: '0 auto' }}>
-    <header style={{ display: 'flex' }}>
-      <h1>React Sprite Demo</h1>
-      <nav
-        style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        }}
-      >
-        <a href="https://npmjs.com/react-sprite">
-          <img
-            alt="npm Link"
-            style={{ width: 30, height: 30, marginLeft: 10 }}
-            src={npm}
-          />
-        </a>
-        <a href="https://github.com/tobua/react-sprite">
-          <img
-            alt="github Link"
-            style={{ width: 30, marginLeft: 10 }}
-            src={github}
-          />
-        </a>
-      </nav>
-    </header>
+  <Exmpl
+    title="React Sprite Demo"
+    npm="react-sprite"
+    github="tobua/react-sprite"
+  >
     <Icon />
-  </div>,
+  </Exmpl>,
   document.body
 )
