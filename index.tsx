@@ -11,11 +11,10 @@ const sprites = new Map<string, Document>()
 const createDocumentFromSprite = (body: string) => {
   const spriteDocument = document.implementation.createHTMLDocument('')
   spriteDocument.body.innerHTML = body
-
   return spriteDocument
 }
 
-// Converts an URL to an absulte URL that can be used for an AJAX request.
+// Converts a URL to an absulte URL that can be used for an AJAX request.
 const absuluteUrl = (url: string) => {
   const link = document.createElement('a')
   link.href = url
@@ -23,14 +22,25 @@ const absuluteUrl = (url: string) => {
 }
 
 const insertSprite = (sprite: Document, node: HTMLElement, id: string) => {
-  const symbol = sprite.getElementById(id)
-
-  // Insert symbol contents into SVG ref.
-  node.innerHTML = symbol.innerHTML
+  const spriteSymbol = sprite.getElementById(id)
+  const symbolChildren = spriteSymbol.childNodes
+  const childrenCount = symbolChildren.length
 
   // Take over viewBox attribute from symbol to ensure proper display.
-  if (symbol.hasAttribute('viewBox')) {
-    node.setAttribute('viewBox', symbol.getAttribute('viewBox'))
+  if (spriteSymbol.hasAttribute('viewBox')) {
+    node.setAttribute('viewBox', spriteSymbol.getAttribute('viewBox'))
+  }
+
+  // Remove previous polyfill if there's one.
+  while (node.firstChild) {
+    node.removeChild(node.firstChild)
+  }
+
+  for (let i = 0; i < childrenCount; i += 1) {
+    // Not entirely clear where some of those Text nodes come from.
+    if (symbolChildren[i] && !(symbolChildren[i] instanceof Text)) {
+      node.appendChild(symbolChildren[i])
+    }
   }
 }
 

@@ -19,4 +19,6 @@ export default () => ({
 export const after = (configuration) => {
   // Remove SVG from file-loader.
   configuration.module.rules[2].test = /\.(png|jpe?g|gif)$/i
+  // Transpile some node_modules for IE 11.
+  configuration.module.rules[0].exclude = /node_modules(?!\/exmpl)/
 }
