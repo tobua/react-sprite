@@ -5,6 +5,8 @@ type Props = React.SVGProps<SVGSVGElement>
 
 // Stores the sprites as queryable documents per URL.
 const sprites = new Map<string, Document>()
+// Contains the currently open sprite requests and the callbacks waiting for a sprite.
+const requests = new Map<string, Array<(sprite: Document) => void>>()
 
 // Creates a sprite document from the raw body contents that can later be
 // queried for individual symbols.
@@ -53,7 +55,13 @@ const requestSprite = async (link: string, node: HTMLElement) => {
     return
   }
 
-  // TODO prevent multiple requests for the same sprite.
+  if (requests.has(url)) {
+    requests.get(url).push((sprite: Document) => insertSprite(sprite, node, id))
+    return
+  }
+
+  requests.set(url, [])
+
   request(
     {
       uri: absuluteUrl(url),
@@ -70,7 +78,14 @@ const requestSprite = async (link: string, node: HTMLElement) => {
         sprites.set(url, spriteDocument)
       }
 
+      const pending = requests.get(url)
+
+      // Resolve other pending requests for this sprite.
+      pending.forEach((done) => done(spriteDocument))
+
       insertSprite(spriteDocument, node, id)
+
+      requests.delete(url)
     }
   )
 }
