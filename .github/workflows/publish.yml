@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@v2.1.2
+      - uses: actions/setup-node@v2.1.4
         with:
-          node-version: '14'
+          node-version: '15'
           check-latest: true
       - name: Build 🛠️
         run: |
@@ -20,9 +20,9 @@ jobs:
           npm install
           npx papua build
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: demo
           FOLDER: demo/dist
           CLEAN: true
