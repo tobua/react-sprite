@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style>
+    .sprite-symbol-usage {display: none;}
+    .sprite-symbol-usage:target {display: inline;}
+  </style><symbol viewBox="0 0 120 120" fill="none" id="menu">
+<g clip-path="url(#menu_clip0)">
+<line y1="10" x2="120" y2="10" stroke="black" stroke-width="20" />
+<line x1="40" y1="110" x2="120" y2="110" stroke="black" stroke-width="20" />
+<line x1="20" y1="60" x2="120" y2="60" stroke="black" stroke-width="20" />
+</g>
+<defs>
+
+</defs>
+</symbol><clipPath id="menu_clip0">
+<rect width="120" height="120" fill="white" />
+</clipPath><symbol viewBox="0 0 120 120" fill="none" id="menu-round">
+<g clip-path="url(#menu-round_clip0)">
+<line x1="10" y1="10" x2="110" y2="10" stroke="black" stroke-width="20" stroke-linecap="round" />
+<line x1="50" y1="110" x2="110" y2="110" stroke="black" stroke-width="20" stroke-linecap="round" />
+<line x1="30" y1="60" x2="110" y2="60" stroke="black" stroke-width="20" stroke-linecap="round" />
+</g>
+<defs>
+
+</defs>
+</symbol><clipPath id="menu-round_clip0">
+<rect width="120" height="120" fill="white" />
+</clipPath><symbol viewBox="0 0 780 250" id="npm">
+<style type="text/css">
+	#npm .st0{fill:#C12127;}
+</style>
+<path class="st0" d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z
+	 M0,200h100V50h50v150h50V0H0V200z" />
+</symbol></defs><use id="menu-usage" xlink:href="#menu" class="sprite-symbol-usage" /><use id="menu-round-usage" xlink:href="#menu-round" class="sprite-symbol-usage" /><use id="npm-usage" xlink:href="#npm" class="sprite-symbol-usage" /></svg>

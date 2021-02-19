@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style>
+    .sprite-symbol-usage {display: none;}
+    .sprite-symbol-usage:target {display: inline;}
+  </style><symbol viewBox="0 0 120 120" fill="none" id="close">
+<g clip-path="url(#close_clip0)">
+<line x1="7.07107" y1="6.92893" x2="113.137" y2="112.995" stroke="black" stroke-width="20" />
+<line x1="6.92893" y1="112.995" x2="112.995" y2="6.92883" stroke="black" stroke-width="20" />
+</g>
+<defs>
+
+</defs>
+</symbol><clipPath id="close_clip0">
+<rect width="120" height="120" fill="white" />
+</clipPath><symbol viewBox="0 0 120 120" fill="none" id="close-round">
+<g clip-path="url(#close-round_clip0)">
+<line x1="10.5" y1="109.358" x2="109.495" y2="10.3629" stroke="black" stroke-width="20" stroke-linecap="round" />
+<line x1="10.6421" y1="10.5" x2="109.637" y2="109.495" stroke="black" stroke-width="20" stroke-linecap="round" />
+</g>
+<defs>
+
+</defs>
+</symbol><clipPath id="close-round_clip0">
+<rect width="120" height="120" fill="white" />
+</clipPath></defs><use id="close-usage" xlink:href="#close" class="sprite-symbol-usage" /><use id="close-round-usage" xlink:href="#close-round" class="sprite-symbol-usage" /></svg>
