@@ -1,7 +1,7 @@
-import React, { useRef, useMemo, useEffect } from 'react'
+import React, { useRef, useMemo, useEffect, SVGProps } from 'react'
 import request from 'xhr'
 
-type Props = React.SVGProps<SVGSVGElement>
+type Props = SVGProps<SVGSVGElement>
 
 // Stores the sprites as queryable documents per URL.
 const sprites = new Map<string, Document>()
@@ -17,7 +17,7 @@ const createDocumentFromSprite = (body: string) => {
 }
 
 // Converts a URL to an absulte URL that can be used for an AJAX request.
-const absuluteUrl = (url: string) => {
+const absoluteUrl = (url: string) => {
   const link = document.createElement('a')
   link.href = url
   return link.href
@@ -39,9 +39,10 @@ const insertSprite = (sprite: Document, node: HTMLElement, id: string) => {
   }
 
   for (let i = 0; i < childrenCount; i += 1) {
+    const currentNode = symbolChildren[i]
     // Not entirely clear where some of those Text nodes come from.
-    if (symbolChildren[i] && !(symbolChildren[i] instanceof Text)) {
-      node.appendChild(symbolChildren[i])
+    if (currentNode && !(currentNode instanceof Text)) {
+      node.appendChild(currentNode.cloneNode(true))
     }
   }
 }
@@ -64,11 +65,12 @@ const requestSprite = async (link: string, node: HTMLElement) => {
 
   request(
     {
-      uri: absuluteUrl(url),
+      uri: absoluteUrl(url),
     },
     (error, _, sprite: string) => {
       if (error && process.env.NODE_ENV !== 'production') {
         console.warn(`ReactSprite: unable to load sprite from ${url}.`)
+        requests.delete(url)
         return
       }
 

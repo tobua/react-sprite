@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { render } from 'react-dom'
 import ReactSprite from 'react-sprite'
-import { Exmpl } from 'exmpl'
+import { Exmpl, Code } from 'exmpl'
 
 import menu from 'icon/menu.svg'
 import close from 'icon/close.svg'
@@ -15,10 +15,13 @@ const icons = {
   closeRound,
 }
 
+const iconStyles = { width: 30, height: 30 }
+
 const Icon = () => {
   const [iconKey, setIconKey] = useState('menu')
 
   const icon = icons[iconKey]
+  const iconUrl = icon.url.replace('-usage', '')
 
   return (
     <>
@@ -28,25 +31,26 @@ const Icon = () => {
         <option value="close">Close</option>
         <option value="closeRound">Close Round</option>
       </select>
-      <p>{icon.url}</p>
-      <svg style={{ width: 40, height: 40 }} viewBox={menu.viewBox}>
-        <use xlinkHref={menu.url} />
-      </svg>
+      <br />
+      <br />
       <ReactSprite
-        style={{ width: 30, height: 30 }}
+        style={iconStyles}
         viewBox={icon.viewBox}
-        href={icon.url}
-      />
-      <ReactSprite
-        style={{ width: 30, height: 30 }}
-        href="sprite.svg#menu"
+        href={iconUrl}
         force
       />
-      <ReactSprite
-        style={{ width: 30, height: 30 }}
-        href="sprite.svg#close-round"
-        force
-      />
+      <Code>{`<ReactSprite
+  href="${iconUrl}"
+  // Force usage of polyfill in any browser.
+  force
+/>`}</Code>
+      <h3>Without Polyfill</h3>
+      <svg style={iconStyles} viewBox={icon.viewBox}>
+        <use xlinkHref={icon.url} />
+      </svg>
+      <Code>{`<svg viewBox="${icon.viewBox}">
+  <use xlinkHref="${icon.url}" />
+</svg>`}</Code>
     </>
   )
 }
@@ -58,6 +62,11 @@ render(
     github="tobua/react-sprite"
   >
     <Icon />
+    <h2>Installation & Usage</h2>
+    <Code>npm i react-sprite</Code>
+    <Code>{`import ReactSprite from 'react-sprite'
+
+const Icon = () => <ReactSprite href="sprite.svg#close" />`}</Code>
   </Exmpl>,
   document.body
 )
