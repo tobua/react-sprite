@@ -1,12 +1,12 @@
 {
   "name": "react-sprite",
   "description": "React Component to Display SVG from Sprite with Polyfill for IE11.",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Matthias Giger",
   "scripts": {
-    "build": "padua build",
-    "start": "padua watch"
+    "start": "padua watch",
+    "build": "padua build"
   },
   "dependencies": {
     "xhr": "^2.6.0"
@@ -15,6 +15,7 @@
     "react": "^17.0.1"
   },
   "main": "dist/index.js",
+  "sideEffects": false,
   "source": "index.tsx",
   "types": "dist/index.d.ts",
   "files": [

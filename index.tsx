@@ -23,7 +23,11 @@ const absoluteUrl = (url: string) => {
   return link.href
 }
 
-const insertSprite = (sprite: Document, node: HTMLElement, id: string) => {
+const insertSymbolFromSprite = (
+  sprite: Document,
+  node: HTMLElement,
+  id: string
+) => {
   const spriteSymbol = sprite.getElementById(id)
   const symbolChildren = spriteSymbol.childNodes
   const childrenCount = symbolChildren.length
@@ -52,12 +56,14 @@ const requestSprite = async (link: string, node: HTMLElement) => {
   const [url, id] = link.split('#')
 
   if (sprites.has(url)) {
-    insertSprite(sprites.get(url), node, id)
+    insertSymbolFromSprite(sprites.get(url), node, id)
     return
   }
 
   if (requests.has(url)) {
-    requests.get(url).push((sprite: Document) => insertSprite(sprite, node, id))
+    requests
+      .get(url)
+      .push((sprite: Document) => insertSymbolFromSprite(sprite, node, id))
     return
   }
 
@@ -85,7 +91,7 @@ const requestSprite = async (link: string, node: HTMLElement) => {
       // Resolve other pending requests for this sprite.
       pending.forEach((done) => done(spriteDocument))
 
-      insertSprite(spriteDocument, node, id)
+      insertSymbolFromSprite(spriteDocument, node, id)
 
       requests.delete(url)
     }

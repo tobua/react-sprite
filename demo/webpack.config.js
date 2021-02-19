@@ -1,3 +1,4 @@
+import { basename } from 'path'
 import SpriteLoaderPlugin from 'svg-sprite-loader/plugin.js'
 
 export default () => ({
@@ -8,7 +9,14 @@ export default () => ({
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          spriteFilename: (svgPath) => `sprite${svgPath.substr(-4)}`,
+          spriteFilename: (svgPath) => {
+            // Generate two different sprites, to see if plugin works with several.
+            if (basename(svgPath).includes('close')) {
+              return 'sprite-close.svg'
+            }
+
+            return 'sprite.svg'
+          },
         },
       },
     ],
