@@ -1,7 +1,7 @@
 {
   "name": "react-sprite",
   "description": "React Component to Display SVG from Sprite with Polyfill for IE11.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "repository": "github:tobua/react-sprite",
   "homepage": "https://tobua.github.io/react-sprite",
   "license": "MIT",
