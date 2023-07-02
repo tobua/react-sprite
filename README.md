@@ -20,7 +20,7 @@ npm i react-sprite
 
 ```jsx
 import { useState } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import ReactSprite from 'react-sprite'
 
 const SimpleIcon = () => <ReactSprite href={`sprite.svg#${'close'}`} />
@@ -49,12 +49,11 @@ const WithOptions = (props) => (
   />
 )
 
-render(
+createRoot(document.body).render(
   <>
     <SimpleIcon />
     <StatefulIcon />
     <WithOptions className="my-icon" />
-  </>,
-  document.body
+  </>
 )
 ```

@@ -3,11 +3,11 @@
     "title": "react-sprite Demo"
   },
   "dependencies": {
-    "exmpl": "^2.0.0",
-    "papua": "^0.1.14",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "svg-sprite-loader": "^5.2.1"
+    "exmpl": "^3.0.0",
+    "papua": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "svg-sprite-loader": "^6.0.11"
   },
   "localDependencies": {
     "react-sprite": ".."

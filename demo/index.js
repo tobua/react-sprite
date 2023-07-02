@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import ReactSprite from 'react-sprite'
 import { Exmpl, Code } from 'exmpl'
 
@@ -33,12 +33,7 @@ const Icon = () => {
       </select>
       <br />
       <br />
-      <ReactSprite
-        style={iconStyles}
-        viewBox={icon.viewBox}
-        href={iconUrl}
-        force
-      />
+      <ReactSprite style={iconStyles} viewBox={icon.viewBox} href={iconUrl} force />
       <Code>{`<ReactSprite
   href="${iconUrl}"
   // Force usage of polyfill in any browser.
@@ -55,18 +50,13 @@ const Icon = () => {
   )
 }
 
-render(
-  <Exmpl
-    title="React Sprite Demo"
-    npm="react-sprite"
-    github="tobua/react-sprite"
-  >
+createRoot(document.body).render(
+  <Exmpl title="React Sprite Demo" npm="react-sprite" github="tobua/react-sprite">
     <Icon />
     <h2>Installation & Usage</h2>
     <Code>npm i react-sprite</Code>
     <Code>{`import ReactSprite from 'react-sprite'
 
 const Icon = () => <ReactSprite href="sprite.svg#close" />`}</Code>
-  </Exmpl>,
-  document.body
+  </Exmpl>
 )

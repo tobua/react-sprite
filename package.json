@@ -7,8 +7,13 @@
   "license": "MIT",
   "author": "Matthias Giger",
   "scripts": {
-    "start": "padua watch",
-    "build": "padua build"
+    "build": "padua build",
+    "start": "padua watch"
+  },
+  "padua": {
+    "esbuild": {
+      "target": "es6"
+    }
   },
   "dependencies": {
     "xhr": "^2.6.0"
@@ -16,10 +21,16 @@
   "peerDependencies": {
     "react": "^17.0.1"
   },
-  "main": "dist/index.js",
   "sideEffects": false,
-  "source": "index.tsx",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "source": "./index.tsx",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "index.tsx"
@@ -33,14 +44,17 @@
     "ie11"
   ],
   "devDependencies": {
-    "@types/react": "^17.0.3",
-    "padua": "^0.3.0"
+    "@types/react": "^18.2.14",
+    "padua": "^2.0.0"
   },
   "prettier": "padua/configuration/.prettierrc.json",
   "eslintConfig": {
     "extends": "./node_modules/padua/configuration/eslint.cjs"
   },
+  "publishConfig": {
+    "provenance": true
+  },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
   }
 }

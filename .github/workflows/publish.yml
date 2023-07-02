@@ -2,17 +2,16 @@ name: publish
 
 on:
   push:
-    branches: [ master ]
+    branches: [main]
 
 jobs:
   demo:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@v2.1.4
-        with:
-          node-version: '15'
-          check-latest: true
+      - uses: actions/checkout@v3
       - name: Build 🛠️
         run: |
           npm install
@@ -20,9 +19,11 @@ jobs:
           npm install
           npx papua build
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: demo
-          FOLDER: demo/dist
-          CLEAN: true
+          branch: demo
+          folder: demo/dist
+      - run: npm install -g npm@latest
+      - uses: tobua/release-npm-action@v2
+        with:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
